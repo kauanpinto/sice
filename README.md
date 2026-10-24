@@ -1,11 +1,23 @@
 # SICE - Sistema Inteligente de Controle de Equipamento
 
-> PROJETO EM DESENVOLVIMENTO!
+> [!WARNING] Projeto em desenvolvimento.
 
-O projeto SICE consiste em um dashboard para o usuário poder ligar/desligar os seus equipamentos de forma remota por meio de seus aparelhos. Estando entre o dispositivo e a fonte de energia, além de gerar notificações (quando há necessidade) monitora o consumo energetico enquanto o aparelho esteve ligado no dia.
+O SICE é um dashboard que permite ligar e desligar equipamentos remotamente, de qualquer dispositivo.
+
+## Descrição
+
+O sistema fica entre o equipamento e a fonte de energia. Ele monitora o consumo energético enquanto o aparelho esteve ligado no dia e gera notificações quando necessário.
+
+## Tecnologias
+
+- [Firebase](https://firebase.google.com/docs): Realtime Database e Authentication
+
+## Como executar
+
+1. [Configurar o backend](./backend/README.md)
 
 ## Autores
 
-[Kauan Fernando](https://github.com/kauanpinto)  
-[Everson Miranda](https://girhub.com/eversonMI)  
-[Simon Henrique](https://github.com/SimHen90)
+- [Kauan Fernando](https://github.com/kauanpinto)
+- [Everson Miranda](https://github.com/eversonMI)
+- [Simon Henrique](https://github.com/SimHen90)

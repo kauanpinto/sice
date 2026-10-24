@@ -1,0 +1,83 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "config": {
+      ".read": false,
+      ".write": false
+    },
+
+    "control": {
+      ".read": "auth != null && (auth.uid === root.child('config/ownerUid').val() || auth.uid === root.child('config/deviceUid').val())",
+
+      "deviceConnected": {
+        ".write": "auth != null && auth.uid === root.child('config/deviceUid').val()",
+        ".validate": "newData.isBoolean()"
+      },
+      "relayState": {
+        ".write": "auth != null && auth.uid === root.child('config/deviceUid').val()",
+        ".validate": "newData.isBoolean()"
+      },
+      "requestedState": {
+        ".write": "auth != null && auth.uid === root.child('config/ownerUid').val()",
+        ".validate": "newData.isBoolean()"
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
+
+    "history": {
+      ".read": "auth != null && (auth.uid === root.child('config/ownerUid').val() || auth.uid === root.child('config/deviceUid').val())",
+      ".write": "auth != null && auth.uid === root.child('config/deviceUid').val()",
+      ".indexOn": ["startedAt"],
+
+      "$id": {
+        ".validate": "newData.hasChildren(['energyWh', 'startedAt'])",
+
+        "startedAt": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "endedAt": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "energyWh": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+
+    "readings": {
+      ".read": "auth != null && (auth.uid === root.child('config/ownerUid').val() || auth.uid === root.child('config/deviceUid').val())",
+      ".write": "auth != null && auth.uid === root.child('config/deviceUid').val()",
+      ".indexOn": ["measuredAt"],
+
+      "$reading": {
+        ".validate": "newData.hasChildren(['currentAmps', 'estimatedPowerW', 'lightLevel', 'measuredAt', 'presenceDetected'])",
+
+        "currentAmps": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() < 30"
+        },
+        "estimatedPowerW": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000"
+        },
+        "lightLevel": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 4095"
+        },
+        "measuredAt": {
+          ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "presenceDetected": {
+          ".validate": "newData.isBoolean()"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}

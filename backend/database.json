@@ -1,0 +1,16 @@
+{
+  "config": {
+    "deviceUid": "",
+    "ownerUid": ""
+  },
+
+  "control": {
+    "deviceConnected": false,
+    "relayState": false,
+    "requestedState": false
+  },
+
+  "history": {},
+
+  "readings": {}
+}
