@@ -1,3 +1,4 @@
 firmware/secrets.h
 *.log
 .DS_Store
+**/node_modules/
