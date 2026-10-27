@@ -42,7 +42,7 @@ onAuthStateChanged(auth, (user) => {
   }
 
   if (!user && isDashboardPage) {
-    window.location.replace("login.html");
+    window.location.replace("index.html");
     return;
   }
 
@@ -94,7 +94,7 @@ if (logoutButton) {
 
     try {
       await signOut(auth);
-      window.location.replace("login.html");
+      window.location.replace("index.html");
     } catch (error) {
       console.error("[SICE] Erro ao sair:", error.code);
       logoutButton.disabled = false;
