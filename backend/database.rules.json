@@ -34,7 +34,7 @@
       ".indexOn": ["startedAt"],
 
       "$id": {
-        ".validate": "newData.hasChildren(['energyWh', 'startedAt'])",
+        ".validate": "newData.hasChildren(['energyWh', 'startedAt', 'event'])",
 
         "startedAt": {
           ".validate": "newData.isNumber() && newData.val() >= 0"
@@ -44,6 +44,9 @@
         },
         "energyWh": {
           ".validate": "newData.isNumber() && newData.val() >= 0"
+        },
+        "event": {
+          ".validate": "newData.isString() && (newData.val() === 'ligado' || newData.val() === 'desligado')"
         },
         "$other": {
           ".validate": false
