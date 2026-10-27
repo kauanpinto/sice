@@ -11,10 +11,12 @@ O sistema fica entre o equipamento e a fonte de energia. Ele monitora o consumo 
 ## Tecnologias
 
 - [Firebase](https://firebase.google.com/docs): Realtime Database e Authentication
+- [Wokwi](https://docs.wokwi.com)
 
 ## Como executar
 
 1. [Configurar o backend](./backend/README.md)
+2. [Condigurar o firmware](./firmware/README.md)
 
 ## Autores
 

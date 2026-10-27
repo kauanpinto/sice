@@ -1,0 +1,15 @@
+{
+  "name": "ACS712-20A",
+  "author": "SICE",
+  "pins": ["VCC", "OUT", "GND"],
+  "controls": [
+    {
+      "id": "acs71220a",
+      "label": "ACS712 (20a)",
+      "type": "range",
+      "min": -20,
+      "max": 20,
+      "step": 0.1
+    }
+  ]
+}
