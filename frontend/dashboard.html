@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Painel de controle do Sistema Inteligente de Controle de Equipamento."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <title>SICE - Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+
+  <body>
+    <main class="dashboard">
+      <header class="dashboard__header">
+        <div class="dashboard__branding">
+          <h1 class="dashboard__title">SICE</h1>
+          <p class="dashboard__subtitle">
+            Sistema Inteligente de Controle de Equipamento
+          </p>
+        </div>
+
+        <button
+          type="button"
+          id="logout-button"
+          class="button button--secondary"
+        >
+          Sair
+        </button>
+      </header>
+
+      <section class="dashboard__welcome">
+        <h2 class="dashboard__heading">Painel de controle</h2>
+        <p class="dashboard__description">
+          Monitore seu equipamento e acompanhe as leituras dos sensores.
+        </p>
+      </section>
+
+      <section class="dashboard__section" aria-labelledby="control-title">
+        <h2 id="control-title" class="dashboard__section-title">
+          Controle do equipamento
+        </h2>
+
+        <div class="dashboard__grid">
+          <article class="card card--control">
+            <div class="card__header">
+              <h3 class="card__title">Equipamento</h3>
+              <span id="relay-status" class="status status--offline">
+                Desligado
+              </span>
+            </div>
+
+            <p id="relay-description" class="card__description">
+              O equipamento está desligado.
+            </p>
+
+            <button
+              type="button"
+              id="relay-button"
+              class="button button--primary"
+              aria-pressed="false"
+            >
+              Ligar equipamento
+            </button>
+          </article>
+
+          <article class="card">
+            <div class="card__header">
+              <h3 class="card__title">Conexão</h3>
+              <span id="connection-status" class="status status--offline">
+                Desconectado
+              </span>
+            </div>
+
+            <p class="card__description">Estado de conexão do dispositivo.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard__section" aria-labelledby="sensors-title">
+        <h2 id="sensors-title" class="dashboard__section-title">
+          Monitoramento
+        </h2>
+
+        <div class="dashboard__grid">
+          <article class="card">
+            <h3 class="card__title">Corrente elétrica</h3>
+
+            <p class="card__value">
+              <span id="current-value">--</span>
+              <span class="card__unit">A</span>
+            </p>
+
+            <p class="card__description">Corrente medida pelo sensor.</p>
+          </article>
+
+          <article class="card">
+            <h3 class="card__title">Potência estimada</h3>
+
+            <p class="card__value">
+              <span id="power-value">--</span>
+              <span class="card__unit">W</span>
+            </p>
+
+            <p class="card__description">Potência elétrica estimada.</p>
+          </article>
+
+          <article class="card">
+            <h3 class="card__title">Luminosidade</h3>
+
+            <p class="card__value">
+              <span id="light-value">--</span>
+              <span class="card__unit">/ 4095</span>
+            </p>
+
+            <p class="card__description">Leitura analógica do sensor LDR.</p>
+          </article>
+
+          <article class="card">
+            <div class="card__header">
+              <h3 class="card__title">Presença</h3>
+              <span id="presence-status" class="status status--offline">
+                Sem presença
+              </span>
+            </div>
+
+            <p class="card__description">Estado detectado pelo sensor PIR.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="dashboard__section" aria-labelledby="history-title">
+        <div class="dashboard__section-header">
+          <h2 id="history-title" class="dashboard__section-title">
+            Histórico recente
+          </h2>
+
+          <a href="#history-list" class="dashboard__link"> Ver histórico </a>
+        </div>
+
+        <div id="history-list" class="history">
+          <p id="history-message" class="history__message">
+            Nenhum evento carregado.
+          </p>
+        </div>
+      </section>
+
+      <footer class="dashboard__footer">
+        <p>SICE — Sistema Inteligente de Controle de Equipamento</p>
+      </footer>
+    </main>
+  </body>
+</html>
