@@ -9,6 +9,8 @@ app.set("trust proxy", 1);
 app.use(helmet());
 app.use(express.json({ limit: "10kb" }));
 
+app.get("/health", (_req, res) => res.status(200).json({ status: "ok" }));
+
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 100,
