@@ -4,6 +4,7 @@ import { sendTelegramMessage } from "./telegram.js";
 const POLL_INTERVAL_MS = 10_000;
 const TOKEN_TTL_MS = 50 * 60 * 1000;
 const REQUEST_TIMEOUT_MS = 10_000;
+const HEARTBEAT_TICKS = 6;
 const TIMEZONE = "America/Bahia";
 
 const REQUIRED_ENV = [
@@ -30,6 +31,8 @@ export function createMonitorService({
   let tokenObtainedAt = 0;
   let pendingMessage = null;
   let loginInFlight = null;
+  let lastState = null;
+  let ticks = 0;
 
   function ensureToken() {
     if (idToken && now() - tokenObtainedAt <= TOKEN_TTL_MS) return;
@@ -120,6 +123,21 @@ export function createMonitorService({
 
     const result = alertMonitor.update(inputs, now());
 
+    if (result.state !== lastState || ticks % HEARTBEAT_TICKS === 0) {
+      const reading = inputs.reading;
+      log.log(
+        `[monitor] estado=${result.state}`,
+        JSON.stringify({
+          relayOn: inputs.relayOn,
+          presence: reading?.presenceDetected ?? null,
+          light: reading?.lightLevel ?? null,
+          readingAgeS: reading ? Math.round((now() - reading.measuredAt) / 1000) : null,
+        }),
+      );
+    }
+    lastState = result.state;
+    ticks++;
+
     if (result.notify) pendingMessage = buildMessage(result.since);
     if (result.state !== "alert") pendingMessage = null;
     if (!pendingMessage) return;
@@ -131,14 +149,30 @@ export function createMonitorService({
         text: pendingMessage,
       });
       pendingMessage = null;
+      log.log("[monitor] Mensagem enviada ao Telegram.");
     } catch (error) {
       log.error("[monitor] Falha ao enviar ao Telegram:", error.message);
+    }
+  }
+
+  async function announceStart() {
+    try {
+      await send({
+        botToken: env.TELEGRAM_BOT_TOKEN,
+        chatId: env.TELEGRAM_CHAT_ID,
+        text: "SICE: monitor de alertas online.",
+      });
+      log.log("[monitor] Telegram OK: mensagem de inicialização enviada.");
+    } catch (error) {
+      log.error("[monitor] Telegram FALHOU na inicialização:", error.message);
     }
   }
 
   function start() {
     let stopped = false;
     let timer = null;
+
+    announceStart();
 
     async function loop() {
       await tick();
