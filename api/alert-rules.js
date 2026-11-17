@@ -1,6 +1,6 @@
 export const ALERT_CONFIG = Object.freeze({
-  graceMs: 2 * 60 * 1000,
-  staleReadingMs: 2 * 60 * 1000,
+  graceMs: 30 * 1000,
+  staleReadingMs: 5 * 60 * 1000,
   lightThreshold: 2048,
   darkWhen: "high",
 });
@@ -34,7 +34,7 @@ export function evaluateCondition(
   const noPresence = !reading.presenceDetected;
   const noLight = isDark(reading.lightLevel, config);
 
-  return noPresence && noLight ? "triggered" : "clear";
+  return noPresence || noLight ? "triggered" : "clear";
 }
 
 export function createAlertMonitor(config = ALERT_CONFIG) {
