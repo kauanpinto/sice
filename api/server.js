@@ -1,6 +1,7 @@
 import express from "express";
 import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
+import { startMonitorFromEnv } from "./monitor.js";
 
 const app = express();
 
@@ -105,4 +106,14 @@ app.post("/refresh", async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`API rodando na porta ${PORT}`));
+
+const server = app.listen(PORT, () =>
+  console.log(`API rodando na porta ${PORT}`),
+);
+
+const stopMonitor = startMonitorFromEnv();
+
+process.on("SIGTERM", () => {
+  stopMonitor?.();
+  server.close();
+});
